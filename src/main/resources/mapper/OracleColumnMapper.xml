@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.shiloh.mapper.oracle.OracleColumnMapper">
+
+  <resultMap id="oracleColumnResultMap" type="org.shiloh.entity.OracleColumn">
+    <result column="tableName" property="tableName" />
+    <result column="columnName" property="columnName" />
+    <result column="dataType" property="dataType" />
+    <result column="dataLength" property="dataLength" />
+    <result column="columnComment" property="columnComment" />
+    <result column="isNullable" property="isNullable" />
+    <result column="dataDefault" property="dataDefault" jdbcType="LONGVARBINARY" javaType="String" />
+    <result column="isPrimaryKey" property="isPrimaryKey" />
+    <result column="dataScale" property="dataScale" />
+    <result column="isForeignKey" property="isForeignKey" />
+    <result column="isUnique" property="isUnique" />
+  </resultMap>
+
+  <select id="findAllColumnsMetadataByTableName" resultMap="oracleColumnResultMap" parameterType="String">
+    select t1.table_name                                                                   as tableName,
+           t1.column_name                                                                  as columnName,
+           data_type                                                                       as dataType,
+           data_length                                                                     as dataLength,
+           comments                                                                        as columnComment,
+           case when nullable = 'Y' then 'YES' when nullable = 'N' then 'NO' else 'NO' end as isNullable,
+           t1.data_default                                                                 as dataDefault,
+           case when t3.column_name is null then 'NO' else 'YES' end                       as isPrimaryKey,
+           data_scale                                                                      as dataScale,
+           case when t4.column_name is null then 'NO' else 'YES' end                       as isForeignKey,
+           case when t5.column_name is null then 'NO' else 'YES' end                       as isUnique
+    from user_col_comments t2
+           left join user_tab_cols t1 on t1.column_name = t2.column_name and t1.table_name = t2.table_name
+           left join (
+      select col.column_name as column_name, con.table_name as table_name
+      from user_constraints con,
+           user_cons_columns col
+      where con.constraint_name = col.constraint_name
+        and con.constraint_type = 'P'
+    ) t3
+                     on t3.table_name = t1.table_name and t1.column_name = t3.column_name
+           left join (
+      select col.column_name as column_name, con.table_name as table_name
+      from user_constraints con,
+           user_cons_columns col
+      where con.constraint_name = col.constraint_name
+        and con.constraint_type = 'R'
+    ) t4
+                     on t4.table_name = t1.table_name and t1.column_name = t4.column_name
+           left join (
+      select col.column_name as column_name, con.table_name as table_name
+      from user_constraints con,
+           user_cons_columns col
+      where con.constraint_name = col.constraint_name
+        and con.constraint_type = 'U'
+    ) t5
+                     on t5.table_name = t1.table_name and t1.column_name = t5.column_name
+    where t1.table_name = #{tableName}
+  </select>
+</mapper>
+
