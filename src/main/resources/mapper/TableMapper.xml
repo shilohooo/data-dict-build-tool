@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.shiloh.mapper.mysql.TableMapper">
+
+  <select id="findAllTablesMetadataByTableSchema"
+          resultType="org.shiloh.entity.Table"
+          parameterType="String">
+    select TABLE_SCHEMA as tableSchema,
+           TABLE_NAME as tableName,
+           CREATE_TIME as createTime,
+           ENGINE as engine,
+           TABLE_ROWS as tableRows,
+           DATA_LENGTH as dataLength,
+           INDEX_LENGTH as indexLength,
+           TABLE_COMMENT as tableComment
+    from TABLES
+    where TABLE_SCHEMA = #{tableSchema}
+  </select>
+
+</mapper>
+

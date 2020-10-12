@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.shiloh.mapper.mysql.ColumnMapper">
+
+  <select id="findAllColumnsMetadataByTableSchemaAndTableName"
+          resultType="org.shiloh.entity.Column"
+          parameterType="String">
+    select TABLE_SCHEMA as tableSchema,
+           TABLE_NAME as tableName,
+           COLUMN_NAME as columnName,
+           COLUMN_TYPE as columnType,
+           IS_NULLABLE as isNullble,
+           COLUMN_DEFAULT as columnDefault,
+           COLUMN_KEY as columnKey,
+           EXTRA as extra,
+           COLUMN_COMMENT as columnComment
+    from COLUMNS
+    where TABLE_SCHEMA = #{tableSchema}
+      and TABLE_NAME = #{tableName}
+  </select>
+
+</mapper>
+

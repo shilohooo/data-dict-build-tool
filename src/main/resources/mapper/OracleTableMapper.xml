@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.shiloh.mapper.oracle.OracleTableMapper">
+
+  <resultMap id="oracleTableResultMap" type="org.shiloh.entity.OracleTable">
+    <result column="tableName" property="tableName"/>
+    <result column="owner" property="owner"/>
+    <result column="tableComment" property="tableComment"/>
+  </resultMap>
+
+  <select id="findAllByOwner" resultMap="oracleTableResultMap" parameterType="String">
+    select table_name as tableName,
+           owner      as owner,
+           comments   as tableComment
+    from all_tab_comments
+    where table_type = #{tableType}
+      and owner = #{owner}
+  </select>
+</mapper>
+
