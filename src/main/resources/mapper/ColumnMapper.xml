@@ -4,14 +4,26 @@
 
 <mapper namespace="org.shiloh.mapper.mysql.ColumnMapper">
 
+  <resultMap id="columnResultMap" type="org.shiloh.entity.Column">
+    <result column="tableSchema" property="tableScheme"/>
+    <result column="tableName" property="tableName"/>
+    <result column="columnName" property="columnName"/>
+    <result column="columnType" property="columnType" jdbcType="LONGVARCHAR" javaType="String"/>
+    <result column="isNullable" property="isNullable"/>
+    <result column="columnDefault" property="columnDefault" jdbcType="LONGVARCHAR" javaType="String"/>
+    <result column="columnKey" property="columnKey"/>
+    <result column="extra" property="extra"/>
+    <result column="columnComment" property="columnComment"/>
+  </resultMap>
+
   <select id="findAllColumnsMetadataByTableSchemaAndTableName"
-          resultType="org.shiloh.entity.Column"
+          resultMap="columnResultMap"
           parameterType="String">
     select TABLE_SCHEMA as tableSchema,
            TABLE_NAME as tableName,
            COLUMN_NAME as columnName,
            COLUMN_TYPE as columnType,
-           IS_NULLABLE as isNullble,
+           IS_NULLABLE as isNullable,
            COLUMN_DEFAULT as columnDefault,
            COLUMN_KEY as columnKey,
            EXTRA as extra,
