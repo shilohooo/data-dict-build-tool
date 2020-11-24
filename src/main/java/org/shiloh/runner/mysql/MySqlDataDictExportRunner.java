@@ -14,7 +14,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,9 +29,11 @@ import java.util.List;
 @ConditionalOnProperty(value = "app.database.type", havingValue = "mysql")
 public class MySqlDataDictExportRunner implements CommandLineRunner {
 
-    private final TableMapper tableMapper;
+    @Resource
+    private TableMapper tableMapper;
 
-    private final ColumnMapper columnMapper;
+    @Resource
+    private ColumnMapper columnMapper;
 
     /**
      * mysql数据库导出：需要导出数据字典的数据库名称
@@ -45,12 +49,6 @@ public class MySqlDataDictExportRunner implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(App.class);
 
-    public MySqlDataDictExportRunner(TableMapper tableMapper, ColumnMapper columnMapper) {
-        this.tableMapper = tableMapper;
-        this.columnMapper = columnMapper;
-    }
-
-
     @Override
     public void run(String... args) {
         ExcelWriter excelWriter = EasyExcel.write(excelFilePath, Column.class)
@@ -62,8 +60,8 @@ public class MySqlDataDictExportRunner implements CommandLineRunner {
             for (Table table : tables) {
                 columns = columnMapper.findAllColumnsMetadataByTableSchemaAndTableName(mysqlTableSchema,
                         table.getTableName());
-                writeSheet = EasyExcel.writerSheet(String.format("%s(%s)", table.getTableName(),
-                        table.getTableComment()))
+                writeSheet = EasyExcel.writerSheet(StringUtils.isEmpty(table.getTableComment()) ? table.getTableName() :
+                        String.format("%s(%s)", table.getTableName(), table.getTableComment()))
                         .build();
                 excelWriter.write(columns, writeSheet);
             }
