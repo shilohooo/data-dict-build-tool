@@ -26,7 +26,7 @@ app:
   excel-file-path: D:\\${app.database.type}数据字典导出.xlsx
 jasypt:
   encryptor:
-    password: FxY4+ssxWrW28jjIxqFjQ==
+    password:
 # mybatis config
 mybatis:
   mapper-locations: classpath:mapper/*.xml
