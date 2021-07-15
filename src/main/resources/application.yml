@@ -6,7 +6,7 @@ spring:
       password: ENC(NaDDh6KsnI8bg1VfXCYbgjJjd+NTb05kSTuo4XSApJPAa/39jwF6uu6Bzx0kHPFe)
       driver-class-name: com.mysql.cj.jdbc.Driver
     oracle:
-      jdbc-url: jdbc:oracle:thin:@//localhost:1521:ORCL
+      jdbc-url: jdbc:oracle:thin:@localhost:1521:ORCL
       username: ENC(L0B/57PEV6y+17DPGGl30eL6e/ybjbJq0z77HSGbrECnbM5AK7D1TVruGTu08i/H)
       password: ENC(5rVBqBJQ0jbeRinnbB77CrgHiKguQ5AefjLc3WakwdUBfeRyS+XsDRTHBZkPhA1M)
       driver-class-name: oracle.jdbc.OracleDriver
@@ -14,7 +14,7 @@ spring:
 app:
   database:
     # 数据库类型，此配置将决定使用哪种类型的数据库导出数据字典，当前支持：mysql、oracle
-    type: mysql
+    type: oracle
     mysql:
       # 需要导出数据字典的数据库名称
       table-schema: hutool_jdbc_test
@@ -26,7 +26,7 @@ app:
   excel-file-path: D:\\${app.database.type}数据字典导出.xlsx
 jasypt:
   encryptor:
-    password: FxY4+ssxWrW28jjIxqFjQ==
+    password:
 # mybatis config
 mybatis:
   mapper-locations: classpath:mapper/*.xml

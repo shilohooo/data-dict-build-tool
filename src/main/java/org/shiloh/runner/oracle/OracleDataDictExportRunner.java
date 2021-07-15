@@ -16,6 +16,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -30,9 +31,11 @@ public class OracleDataDictExportRunner implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(OracleDataDictExportRunner.class);
 
-    private final OracleTableMapper oracleTableMapper;
+    @Resource
+    private OracleTableMapper oracleTableMapper;
 
-    private final OracleColumnMapper oracleColumnMapper;
+    @Resource
+    private OracleColumnMapper oracleColumnMapper;
 
     @Value("${app.database.oracle.owner}")
     private String owner;
@@ -44,11 +47,6 @@ public class OracleDataDictExportRunner implements CommandLineRunner {
     private String excelFilePath;
 
     private static final String TABLE_TYPE = "TABLE";
-
-    public OracleDataDictExportRunner(OracleTableMapper oracleTableMapper, OracleColumnMapper oracleColumnMapper) {
-        this.oracleTableMapper = oracleTableMapper;
-        this.oracleColumnMapper = oracleColumnMapper;
-    }
 
     @Override
     public void run(String... args) {
