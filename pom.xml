@@ -23,7 +23,7 @@
     <jasypt.spring.boot.stater.version>3.0.3</jasypt.spring.boot.stater.version>
     <mybatis.spring.boot.version>2.0.0</mybatis.spring.boot.version>
     <mysql.driver.version>8.0.16</mysql.driver.version>
-    <oracle.driver.version>12.1.0.1-atlassian-hosted</oracle.driver.version>
+    <oracle.driver.version>11.2.0.3</oracle.driver.version>
   </properties>
 
   <dependencies>
