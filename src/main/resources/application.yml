@@ -10,20 +10,16 @@ spring:
       username: ENC(L0B/57PEV6y+17DPGGl30eL6e/ybjbJq0z77HSGbrECnbM5AK7D1TVruGTu08i/H)
       password: ENC(5rVBqBJQ0jbeRinnbB77CrgHiKguQ5AefjLc3WakwdUBfeRyS+XsDRTHBZkPhA1M)
       driver-class-name: oracle.jdbc.OracleDriver
-# custom config
+# export config
 app:
-  database:
-    # 数据库类型，此配置将决定使用哪种类型的数据库导出数据字典，当前支持：mysql、oracle
-    type: oracle
-    mysql:
-      # 需要导出数据字典的数据库名称
-      table-schema: hutool_jdbc_test
-  # 数据字典excel文件存放路径
-    oracle:
-      # 表所属用户
-      owner: QT_PAS
-  # 数据字典文件导出默认存放位置
-  excel-file-path: D:\\${app.database.type}数据字典导出.xlsx
+  # 数据库类型，此配置将决定使用哪种类型的数据库导出数据字典，当前支持：mysql、oracle
+  db-type: mysql
+  # 需要导出数据字典的数据库名称
+  table-schema: dict_export_test
+  # Oracle表空间所属用户
+  owner:
+  # 数据字典文件导出位置，默认在D盘
+  export-path: D:\\${app.db-type}_数据字典导出.xlsx
 jasypt:
   encryptor:
     password:

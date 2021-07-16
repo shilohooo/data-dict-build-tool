@@ -3,6 +3,8 @@ package org.shiloh.runner.oracle;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
+import lombok.RequiredArgsConstructor;
+import org.shiloh.config.DictExportConfig;
 import org.shiloh.entity.OracleColumn;
 import org.shiloh.entity.OracleTable;
 import org.shiloh.mapper.oracle.OracleColumnMapper;
@@ -16,7 +18,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,19 +26,17 @@ import java.util.List;
  */
 @Component
 @Order(1)
-@ConditionalOnProperty(value = "app.database.type", havingValue = "oracle")
+@ConditionalOnProperty(value = "app.db-type", havingValue = "oracle")
+@RequiredArgsConstructor
 public class OracleDataDictExportRunner implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(OracleDataDictExportRunner.class);
 
-    @Resource
-    private OracleTableMapper oracleTableMapper;
+    private final OracleTableMapper oracleTableMapper;
 
-    @Resource
-    private OracleColumnMapper oracleColumnMapper;
+    private final OracleColumnMapper oracleColumnMapper;
 
-    @Value("${app.database.oracle.owner}")
-    private String owner;
+    private final DictExportConfig config;
 
     /**
      * 数据字典文件存放路径
@@ -52,7 +51,7 @@ public class OracleDataDictExportRunner implements CommandLineRunner {
         ExcelWriter excelWriter = EasyExcel.write(excelFilePath, OracleColumn.class)
                 .build();
         try {
-            List<OracleTable> oracleTables = oracleTableMapper.findAllByOwner(TABLE_TYPE, owner);
+            List<OracleTable> oracleTables = oracleTableMapper.findAllByOwner(TABLE_TYPE, config.getOwner());
             List<OracleColumn> oracleColumns;
             WriteSheet writeSheet;
             String sheetName;

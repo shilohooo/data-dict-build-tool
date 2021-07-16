@@ -10,37 +10,40 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 /**
+ * dataSource configuration
+ *
  * @author lxlei
  * @date 2020/9/22 10:46
- * @description dataSource configuration
  */
 @Configuration
 public class DataSourceConfig {
 
     /**
      * 配置连接MySQL数据库的数据源
+     *
+     * @return javax.sql.DataSource
      * @author lxlei
      * @date 2020/10/9 16:42
-     * @return javax.sql.DataSource
      */
     @Bean
     @Qualifier("mysqlDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.mysql")
-    @ConditionalOnProperty(value = "app.database.type", havingValue = "mysql")
+    @ConditionalOnProperty(value = "app.db-type", havingValue = "mysql")
     public DataSource mysqlDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     /**
      * 配置连接Oracle数据库的数据源
+     *
+     * @return javax.sql.DataSource
      * @author lxlei
      * @date 2020/10/10 14:09
-     * @return javax.sql.DataSource
      */
     @Bean
     @Qualifier("oracleDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.oracle")
-    @ConditionalOnProperty(value = "app.database.type", havingValue = "oracle")
+    @ConditionalOnProperty(value = "app.db-type", havingValue = "oracle")
     public DataSource oracleDataSource() {
         return DataSourceBuilder.create().build();
 
