@@ -8,9 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * Oracle表元数据对应实体
+ *
  * @author lxlei
  * @date 2020/10/12 11:57
- * @description Oracle表元数据对应实体
  */
 @Data
 public class OracleTable implements RowMapper<OracleTable> {
