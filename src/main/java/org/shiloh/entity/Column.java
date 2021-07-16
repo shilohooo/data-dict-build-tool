@@ -10,9 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * 列信息实体
+ *
  * @author lxlei
  * @date 2020/9/21 17:59
- * @description 列信息实体
  */
 @Data
 @ColumnWidth(20)

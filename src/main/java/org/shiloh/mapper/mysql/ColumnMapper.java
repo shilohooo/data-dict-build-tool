@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * @author lxlei
  * @date 2020/10/12 16:35
- * @description
  */
 public interface ColumnMapper {
 

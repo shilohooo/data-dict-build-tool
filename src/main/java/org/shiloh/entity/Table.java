@@ -6,9 +6,10 @@ import lombok.Data;
 import java.util.Date;
 
 /**
+ * 表信息实体
+ *
  * @author lxlei
  * @date 2020/9/21 17:51
- * @description 表信息实体
  */
 @Data
 public class Table {
