@@ -7,49 +7,29 @@
 
 1. 修改配置文件中的MySQL数据库连接信息：用户名和密码
 
-![image-20210715164335768](assets/images/image-20210715164335768.png)
+   ![image-20210716120952868](assets/images/image-20210716120952868.png)
 
 说明，数据库帐号密码采用jasypt加密，参考资料：https://github.com/ulisesbocchio/jasypt-spring-boot
 
-2. 修改导出数据字典的数据库类型为MySQL
+2. 修改需要导出数据字典的数据库类型
 
-![image-20210715164547653](assets/images/image-20210715164547653.png)
+   ![image-20210716120911912](assets/images/image-20210716120911912.png)
 
-3. 修改导出数据字典的数据库名称
+3. 修改需要导出数据库的名称
 
-![image-20210715164612262](assets/images/image-20210715164612262.png)
+   1. 数据库类型为mysql时，修改app.table-schema为需要导出数据字典的数据库名称
 
-4. 修改数据字典导出位置，默认在D盘
+      ![image-20210716121128473](assets/images/image-20210716121128473.png)
 
-![image-20210715164953113](assets/images/image-20210715164953113.png)
+   2. 数据库类型为oracle时，修改app.owner为oracle表空间所属的用户名
 
-5. 运行程序
+   ![image-20210716121150977](assets/images/image-20210716121150977.png)
 
-   ![image-20210715165008869](assets/images/image-20210715165008869.png)
+4. 修改数据字典文件导出路径，默认放在D盘
 
-----
+![image-20210716121217698](assets/images/image-20210716121217698.png)
 
-### Oracle
+5. 运行程序即可
 
-1. 修改配置文件中的Oracle数据库连接信息
-
-![image-20210715165150746](assets/images/image-20210715165150746.png)
-
-说明：驱动程序包请自行准备
-
-2. 修改导出数据字典的数据库类型为oracle
-
-   ![image-20210715165246266](assets/images/image-20210715165246266.png)
-
-3. 修改Oracle数据库表空间所属用户
-
-![image-20210715165320490](assets/images/image-20210715165320490.png)
-
-4. 修改数据字典导出位置，默认在D盘
-
-![image-20210715164953113](assets/images/image-20210715164953113.png)
-
-5. 运行程序
-
-![image-20210715165008869](assets/images/image-20210715165008869.png)
+![image-20210716121248714](assets/images/image-20210716121248714.png)
 
