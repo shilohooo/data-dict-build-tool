@@ -3,10 +3,6 @@ package org.shiloh.entity;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import lombok.Data;
-import org.springframework.jdbc.core.RowMapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Oracle列元数据对应实体
@@ -16,7 +12,7 @@ import java.sql.SQLException;
  */
 @Data
 @ColumnWidth(20)
-public class OracleColumn implements RowMapper<OracleColumn> {
+public class OracleColumn {
 
     /**
      * 列所属表名称
@@ -83,21 +79,4 @@ public class OracleColumn implements RowMapper<OracleColumn> {
      */
     @ExcelProperty("列注释")
     private String columnComment;
-
-    @Override
-    public OracleColumn mapRow(ResultSet resultSet, int i) throws SQLException {
-        OracleColumn oracleColumn = new OracleColumn();
-        oracleColumn.setTableName(resultSet.getString("tableName"));
-        oracleColumn.setColumnName(resultSet.getString("columnName"));
-        oracleColumn.setDataType(resultSet.getString("dataType"));
-        oracleColumn.setDataLength(resultSet.getInt("dataLength"));
-        oracleColumn.setDataScale(resultSet.getInt("dataScale"));
-        oracleColumn.setIsNullable(resultSet.getString("isNullable"));
-//        oracleColumn.setDataDefault(String.valueOf(resultSet.getLong("dataDefault")));
-        oracleColumn.setIsPrimaryKey(resultSet.getString("isPrimaryKey"));
-        oracleColumn.setIsForeignKey(resultSet.getString("isForeignKey"));
-        oracleColumn.setIsUnique(resultSet.getString("isUnique"));
-        oracleColumn.setColumnComment(resultSet.getString("columnComment"));
-        return oracleColumn;
-    }
 }

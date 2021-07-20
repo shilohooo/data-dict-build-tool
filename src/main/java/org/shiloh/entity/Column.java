@@ -3,11 +3,8 @@ package org.shiloh.entity;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import lombok.Data;
-import org.springframework.jdbc.core.RowMapper;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * 列信息实体
@@ -17,7 +14,7 @@ import java.sql.SQLException;
  */
 @Data
 @ColumnWidth(20)
-public class Column implements Serializable, RowMapper<Column> {
+public class Column implements Serializable {
 
     /**
      * 列属性所在的表所属的数据库名称
@@ -72,20 +69,4 @@ public class Column implements Serializable, RowMapper<Column> {
      */
     @ExcelProperty("注释")
     private String columnComment;
-
-    @Override
-    public Column mapRow(ResultSet resultSet, int i) throws SQLException {
-        Column column = new Column();
-        column.setTableScheme(resultSet.getString("TABLE_SCHEMA"));
-        column.setTableName(resultSet.getString("TABLE_NAME"));
-        column.setColumnName(resultSet.getString("COLUMN_NAME"));
-        column.setColumnType(resultSet.getString("COLUMN_TYPE"));
-        column.setIsNullable(resultSet.getString("IS_NULLABLE"));
-        column.setColumnDefault(resultSet.getString("COLUMN_DEFAULT"));
-        column.setColumnKey(resultSet.getString("COLUMN_KEY"));
-        column.setExtra(resultSet.getString("EXTRA"));
-        column.setColumnComment(resultSet.getString("COLUMN_COMMENT"));
-        return column;
-    }
-
 }

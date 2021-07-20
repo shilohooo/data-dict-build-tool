@@ -46,6 +46,5 @@ public class DataSourceConfig {
     @ConditionalOnProperty(value = "app.db-type", havingValue = "oracle")
     public DataSource oracleDataSource() {
         return DataSourceBuilder.create().build();
-
     }
 }

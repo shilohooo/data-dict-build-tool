@@ -2,15 +2,14 @@ package org.shiloh.runner.mysql;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import lombok.RequiredArgsConstructor;
-import org.shiloh.App;
+import lombok.extern.slf4j.Slf4j;
 import org.shiloh.config.DictExportConfig;
 import org.shiloh.entity.Column;
 import org.shiloh.entity.Table;
 import org.shiloh.mapper.mysql.ColumnMapper;
 import org.shiloh.mapper.mysql.TableMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
@@ -27,24 +26,22 @@ import java.util.List;
 @Order(1)
 @ConditionalOnProperty(value = "app.db-type", havingValue = "mysql")
 @RequiredArgsConstructor
+@Slf4j
 public class MySqlDataDictExportRunner implements CommandLineRunner {
-
     private final TableMapper tableMapper;
 
     private final ColumnMapper columnMapper;
 
     private final DictExportConfig config;
 
-    private static final Logger LOG = LoggerFactory.getLogger(App.class);
-
     @Override
     public void run(String... args) {
-        ExcelWriter excelWriter = EasyExcel.write(config.getExportPath(), Column.class)
+        final ExcelWriter excelWriter = EasyExcel.write(config.getExportPath(), Column.class)
                 .build();
         try {
-            List<Table> tables = tableMapper.findAllTablesMetadataByTableSchema(config.getTableSchema());
+            final List<Table> tables = tableMapper.findAllTablesMetadataByTableSchema(config.getTableSchema());
             List<Column> columns;
-            com.alibaba.excel.write.metadata.WriteSheet writeSheet;
+            WriteSheet writeSheet;
             for (Table table : tables) {
                 columns = columnMapper.findAllColumnsMetadataByTableSchemaAndTableName(config.getTableSchema(),
                         table.getTableName());
@@ -58,6 +55,6 @@ public class MySqlDataDictExportRunner implements CommandLineRunner {
                 excelWriter.finish();
             }
         }
-        LOG.info("MySQL数据字典导出完毕，存放位置为：[{}]", config.getExportPath());
+        log.info("MySQL数据字典导出完毕，存放位置为：[{}]", config.getExportPath());
     }
 }

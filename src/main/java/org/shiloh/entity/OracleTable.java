@@ -2,10 +2,6 @@ package org.shiloh.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
-import org.springframework.jdbc.core.RowMapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Oracle表元数据对应实体
@@ -14,7 +10,7 @@ import java.sql.SQLException;
  * @date 2020/10/12 11:57
  */
 @Data
-public class OracleTable implements RowMapper<OracleTable> {
+public class OracleTable {
 
     /**
      * 表名称
@@ -33,14 +29,4 @@ public class OracleTable implements RowMapper<OracleTable> {
      */
     @ExcelProperty("表注释")
     private String tableComment;
-
-    @Override
-    public OracleTable mapRow(ResultSet rs, int rowNum) throws SQLException {
-        OracleTable oracleTable = new OracleTable();
-        oracleTable.setTableName(rs.getString("tableName"));
-        oracleTable.setOwner(rs.getString("owner"));
-        oracleTable.setTableComment(rs.getString("tableComment"));
-        return oracleTable;
-    }
-
 }
