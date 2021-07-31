@@ -22,7 +22,7 @@ public class DataSourceConfig {
      * 配置连接MySQL数据库的数据源
      *
      * @return javax.sql.DataSource
-     * @author lxlei
+     * @author shiloh
      * @date 2020/10/9 16:42
      */
     @Bean
@@ -37,7 +37,7 @@ public class DataSourceConfig {
      * 配置连接Oracle数据库的数据源
      *
      * @return javax.sql.DataSource
-     * @author lxlei
+     * @author shiloh
      * @date 2020/10/10 14:09
      */
     @Bean
