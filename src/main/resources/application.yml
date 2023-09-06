@@ -1,7 +1,7 @@
 spring:
   datasource:
     mysql:
-      jdbc-url: jdbc:mysql://localhost:13306/information_schema?serverTimezone=GMT%2B8&characterEncoding=UTF-8
+      jdbc-url: jdbc:mysql://localhost:13306/information_schema?serverTimezone=GMT%2B8&characterEncoding=UTF-8&useSSL=false
       username: ENC(QB42bLCh3ge4cLBjOj4LFBL+htwWAsJKdrbHTcZD25GiGiiV3me0+VZMQyey5NnV)
       password: ENC(NaDDh6KsnI8bg1VfXCYbgjJjd+NTb05kSTuo4XSApJPAa/39jwF6uu6Bzx0kHPFe)
       driver-class-name: com.mysql.cj.jdbc.Driver
